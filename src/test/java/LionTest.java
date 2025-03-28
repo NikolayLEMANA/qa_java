@@ -9,6 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
@@ -29,7 +30,7 @@ public class LionTest {
     public void getFoodTest() throws Exception {
         Lion lion = new Lion("Самец", feline);
         List<String> expected = List.of("Животные", "Птицы", "Рыба");
-        Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+        Mockito.when(feline.getFood("Хищник")).thenReturn(expected);
         List<String> actual = lion.getFood();
         assertEquals(expected, actual);
     }
@@ -39,16 +40,15 @@ public class LionTest {
         Lion lion = new Lion("Самец", feline);
         boolean expectedHaveMane = true;
         boolean actualHaveMane = lion.doesHaveMane();
-        assertEquals(actualHaveMane, expectedHaveMane);
+        assertEquals(expectedHaveMane, actualHaveMane);
     }
 
     @Test
     public void doesHaveManeThrowsException() {
-        try {
-            Lion lion = new Lion("Котик", feline);
-        } catch (Exception exception) {
+        Exception exception = assertThrows(Exception.class, () -> {
+            new Lion("Котик", feline); // Код, который должен выбросить исключение
+        });
             String textException = "Используйте допустимые значения пола животного - самец или самка";
             assertEquals(textException, exception.getMessage());
         }
-    }
 }
