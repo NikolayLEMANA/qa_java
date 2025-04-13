@@ -22,7 +22,7 @@ public class LionTest {
         Lion lion = new Lion("Самка", feline);
         Mockito.when(feline.getKittens()).thenReturn(3);
         int actualKittensCount = lion.getKittens();
-        int expectedKittensCount = 3;
+        int expectedKittensCount = 3
         assertEquals(expectedKittensCount, actualKittensCount);
     }
 
@@ -46,7 +46,7 @@ public class LionTest {
     @Test
     public void doesHaveManeThrowsException() {
         Exception exception = assertThrows(Exception.class, () -> {
-            new Lion("Котик", feline); // Код, который должен выбросить исключение
+            new Lion("Котик", feline);
         });
             String textException = "Используйте допустимые значения пола животного - самец или самка";
             assertEquals(textException, exception.getMessage());
